@@ -1,2 +1,2 @@
 # AirlineCompany
-A simple website with local data management for an airline company
+A simple website with local data management write with MySQL for an airline company in Python flask
