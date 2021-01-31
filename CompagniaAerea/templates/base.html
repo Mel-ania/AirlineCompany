@@ -1,0 +1,138 @@
+﻿<html>
+<!-- 
+    Questa pagina html e' la base per tutte le altre pagine. Qui si trovano i riferimenti a dei file css e js
+    necessari per la resa della grafica. Qui si trova anche il <title></title> che rimane uguale per tutte le
+    pagine. Questa pagina base serve per non avere ridondanza di codice all'interno delle pagine html, ma si
+    puo' aggiungere codice al blocco "head" e "pagebody" da qualcunque pagina estenda questa base.
+    Il segno che contraddistingue tutte le pagine e' la barra di navigazione che rimane sempre uguale perche',
+    appunto, si trova nella base. Solo tre cose possono variare nel suo aspetto:
+        - l'input varia da login a logout a seconda se l'utente corrente e' autenticato o meno;
+        - l'area riservata non e' accessibile se non si e' autenticati;
+        - possono apparire messaggi di errore per l'utente che tenta di compiere azioni sbagliate.
+    Le verifiche per l'autorizzazione sono fatte all'interno di flask, qui si tiene conto solo dell'autenticazione.
+    Quando servono delle variabili in arrivo da flask, si utilizzano le {} doppie, mentre per utilizzare un comando di
+    flask, come un if o un for, si utilizzano le {} singole con i %.
+-->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="{{url_for('static',filename='js/JQuery.js')}}" type="text/javascript"></script>
+    <style>
+        .alert-error {
+            border-radius: 3px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            background-color: red;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+
+    <title>Tappeto volante</title> <!-- Nome compagnia aerea -->
+
+    <!-- Blocco per aggiungere contenuti alla sezione head -->
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <!-- Barra di navigazione -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <p class="navbar-brand my-2 my-lg-0">Tappeto volante</p> <!-- Nome compagnia aerea -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{{url_for('home')}}" method="post">
+                        <!-- Input per tornare alla home -->
+                        <input id="home" class="btn btn-light" type="submit" name="Home" value="Home" />
+                    </form>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pianifica <!-- Menu' rapido -->
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <form class="form-inline my-lg-0" action="{{url_for('voli')}}" method="post">
+                            <!-- Input per la lista di tutti i voli -->
+                            <input id="voli" class="dropdown-item" type="submit" name="Voli" value="Voli" />
+                        </form>
+                        <form class="form-inline my-lg-0" action="{{url_for('lowCost')}}" method="post">
+                            <!-- Input per la lista dei voli low cost -->
+                            <input id="lowCost" class="dropdown-item" type="submit" name="Voli low cost" value="Voli low cost" />
+                        </form>
+                        <form class="form-inline my-lg-0" action="{{url_for('offerte')}}" method="post">
+                            <!-- Input per la lista dei voli con sconti -->
+                            <input id="offerte" class="dropdown-item" type="submit" name="Offerte" value="Offerte" />
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <form class="form-inline my-lg-0" action="{{url_for('mete')}}" method="post">
+                            <!-- Input per la lista di tutte le mete -->
+                            <input id="mete" class="dropdown-item" type="submit" name="Mete" value="Mete" />
+                        </form>
+                        <form class="form-inline my-lg-0" action="{{url_for('meteGettonate')}}" method="post">
+                            <!-- Input per la lista delle mete piu' richieste -->
+                            <input id="meteGettonate" class="dropdown-item" type="submit" name="Mete gettonate" value="Mete gettonate" />
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <form class="form-inline my-lg-0" action="{{url_for('classi')}}" method="post">
+                            <!-- Input per vedere i privilegi per le diverse classi -->
+                            <input id="classi" class="dropdown-item" type="submit" name="Classi e privilegi" value="Classi e privilegi" />
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{{url_for('areaRiservata')}}" method="post">
+                        <!-- Input per l'area riservata dell'utente autenticato -->
+                        <input id="areaRiservata" class="btn btn-light" type="submit" disabled name="Area riservata" value="Area riservata" />
+                    </form>
+                </li>
+
+                <!-- Messaggi di errore per l'utente -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                <li class="alert-{{ category }} form-inline my-2 my-lg-0 ml-5">{{ message }}</li>
+                <!-- Categoria del messagio e messaggio -->
+                {% endfor %}
+                {% endwith %}
+            </ul>
+
+            <!-- Input di login o logout per l'utente autenticato o meno -->
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('loginPagina')}}" method="post">
+                <input type="submit" id="login" class="btn btn-light" name="Login" value="Login" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('logout')}}" method="post">
+                <input type="submit" id="logout" class="btn btn-light" name="Logout" value="Logout" />
+            </form>
+
+            <script type="text/javascript">
+                {% if logged == true %} // se l'utente e' autenticato
+                $("#login").attr("type", "hidden"); // l'input login viene nascosto
+                $("#logout").attr("type", "submit"); // l'input logout viene mostrato
+                $("#areaRiservata").attr("disabled", false); // l'area riservata e' accessibile
+                {% else %} // se l'utente non e' autenticato
+                $("#login").attr("type", "submit"); // l'input login viene mostrato
+                $("#logout").attr("type", "hidden"); // l'input logout viene nascosto
+                $("#areaRiservata").attr("disabled", true); // l'area riservata non e' accessibile
+                {% endif %}
+            </script>
+        </div>
+    </nav>
+
+    <!-- Blocco per aggiungere contenuti alla sezione body -->
+    {% block pagebody %}
+    {% endblock %}
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

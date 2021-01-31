@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+<!-- 
+    Questa pagina mostra i dettagli specifici di un singolo volo precedentemente selezionato.
+    Il codice del volo e' servito per trovare tutte le informazioni specifiche tramite flask,
+    pero' poi e' stato comunque ripassato a questa pagina html per poter poi fare la richiesta
+    di andare a cercare dei posti da prenotare sul volo.
+    La struttura e' fissa e le informazioni vengono prese attraverso una riga di una tabella
+    passata da flask.
+-->
+
+{% block head %}
+<style>
+    .jumbotron {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        margin-bottom: 0;
+        background-color: #fff;
+    }
+
+    @media (min-width: 768px) {
+        .jumbotron {
+            padding-top: 6rem;
+        }
+    }
+
+    .jumbotron p:last-child {
+        margin-bottom: 0;
+    }
+
+    .jumbotron h1 {
+        font-weight: 300;
+    }
+
+    .jumbotron .container {
+        max-width: 40rem;
+    }
+
+    .container {
+        margin-bottom: 0px;
+        margin-top: -20px;
+    }
+
+    .testo {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<main role="main">
+    <!-- Intestazione -->
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>{{info['CittaParte']}} - {{info['Citta']}}</h1> <!-- Luogo di partenza e di arrivo -->
+            <p class="lead text-muted">Qui sotto sono elencate le specifiche relative a questo volo.</p>
+            <form class="bottone mx-auto my-lg-0" action="{{url_for('posti')}}" method="post">
+                <!-- Passaggio della classe non visibile -->
+                <input type="hidden" name="classe" value="1" />
+                <!-- Passaggio del codice del volo non visibile -->
+                <input type="hidden" name="volo" value="{{info['CodVoli']}}" />
+                <!-- Passaggio della citta' di partenza non visibile -->
+                <input type="hidden" name="da" value="{{info['CittaParte']}}" />
+                <!-- Passaggio della citta' di arrivo non visibile -->
+                <input type="hidden" name="verso" value="{{info['Citta']}}" />
+                <!-- Input per cercare posti da prenotare per questo volo -->
+                <input id="posti" class="btn btn-outline-dark " type="submit" name="Cerca posti" value="Cerca posti" />
+            </form>
+        </div>
+    </section>
+
+    <!-- Informazioni sul volo -->
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Partenza</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">{{info['Partenza']}}</p> <!-- Data e orario di partenza -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Arrivo</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">{{info['Arrivo']}}</p> <!-- Data e orario di arrivo -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Durata viaggio</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">{{info['Durata']}}</p> <!-- Durata del volo -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Partenza da</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{info['AeroportoParte']}} <!-- Nome aeroporto di partenza -->
+                                <br />
+                                {{info['CittaParte']}} - {{info['NazioneParte']}} <!-- Nome citta' e nazione di partenza -->
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Arrivo a</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{info['NomeAeroporto']}} <!-- Nome aeroporto di arrivo -->
+                                <br />
+                                {{info['Citta']}} - {{info['Nazione']}} <!-- Nome citta' e nazione di arrivo -->
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="50">
+                            <rect width="100%" height="100%" fill="#55595c" />
+                            <text class="testo" x="10%" y="50%" fill="#eceeef" dy=".3em">Scali</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">Numero scali: {{info['NumScali']}}</p> <!-- Numero scali -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

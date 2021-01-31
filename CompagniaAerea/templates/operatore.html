@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina e' l'area riservata dell'operatore dove puo':
+        - andare alla pagina di modifica dei propri dati;
+        - andare alla pagina per visualizzare le statistiche;
+        - registrare, modificare o cancellare una meta;
+        - registrare, modificare o cancellare un volo;
+        - registrare, modificare o cancellare un aereo;
+        - andare alla pagina per inserire un nuovo operatore.
+    La pagina serve solo come centro operativo per rimandare l'operatore alla pagina che
+    veramente gli interessa e a cui solo lui puo' accedere.
+    La struttura della pagina e' fissa e non c'e' bisogno di dati passati da flask.
+-->
+
+{% block head %}
+<style>
+    .btn-grp {
+        max-width: 75%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .btn {
+        font-size: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .column {
+        flex: 50%;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5 text-white bg-dark">
+    <h1 class="display-4">Buongiorno, operatore</h1>
+    <p class="lead">Come desideri procedere?</p>
+</div>
+
+<div class="btn-grp mx-auto">
+    <form class="form-inline my-2 my-lg-0 mx-auto" action="{{url_for('modificaProfiloPagina')}}" method="post">
+        <!-- Input per andare alla pagina di modifica dei prorpi dati -->
+        <input id="modificaProfiloPagina" class="btn btn-outline-secondary btn-block mt-5" type="submit" name="Modifica profilo" value="Modifica profilo" />
+    </form>
+    <form class="form-inline my-2 my-lg-0" action="{{url_for('statistiche')}}" method="post">
+        <!-- Input per andare alla pagina delle statistiche -->
+        <input id="statistiche" class="btn btn-outline-info btn-block" type="submit" name="Vedi statistiche" value="Vedi statistiche" />
+    </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('regMetaPagina')}}" method="post">
+                <!-- Input per andare alla pagina di registrazione di una meta -->
+                <input id="regMetaPagina" class="btn btn-outline-success btn-block" type="submit" name="Inserisci una nuova meta" value="Inserisci una nuova meta" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('modificaMetaPagina')}}" method="post">
+                <!-- Input per andare alla pagina di modifica di una meta -->
+                <input id="modificaMetaPagina" class="btn btn-outline-warning btn-block" type="submit" name="Modifica i dati di una meta" value="Modifica i dati di una meta" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('cancellaMetaPagina')}}" method="post">
+                <!-- Input per andare alla pagina di cancellazione di una meta -->
+                <input id="cancellaMetaPagina" class="btn btn-outline-danger btn-block" type="submit" name="Elimina una meta" value="Elimina una meta" />
+            </form>
+        </div>
+        <div class="col-md-4 ml-auto">
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('regVoloPagina')}}" method="post">
+                <!-- Input per andare alla pagina di registrazione di un volo -->
+                <input id="regVoloPagina" class="btn btn-outline-success btn-block" type="submit" name="Inserisci un nuovo volo" value="Inserisci un nuovo volo" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('modificaVoloPagina')}}" method="post">
+                <!-- Input per andare alla pagina di modifica di un volo -->
+                <input id="modificaVoloPagina" class="btn btn-outline-warning btn-block" type="submit" name="Modifica un volo" value="Modifica un volo" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('cancellaVoloPagina')}}" method="post">
+                <!-- Input per andare alla pagina di cancellazione di un volo -->
+                <input id="cancellaVoloPagina" class="btn btn-outline-danger btn-block" type="submit" name="Elimina un volo" value="Elimina un volo" />
+            </form>
+        </div>
+        <div class="col-md-4 ml-auto">
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('regAereoPagina')}}" method="post">
+                <!-- Input per andare alla pagina di registrazione di un aereo -->
+                <input id="regAereoPagina" class="btn btn-outline-success btn-block" type="submit" name="Inserisci un nuovo aereo" value="Inserisci un nuovo aereo" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('modificaAereoPagina')}}" method="post">
+                <!-- Input per andare alla pagina di modifica di un aereo -->
+                <input id="modificaAereoPagina" class="btn btn-outline-warning btn-block" type="submit" name="Modifica i dati di un aereo" value="Modifica i dati di un aereo" />
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="{{url_for('cancellaAereoPagina')}}" method="post">
+                <!-- Input per andare alla pagina di cancellazione di un aereo -->
+                <input id="cancellaAereoPagina" class="btn btn-outline-danger btn-block" type="submit" name="Elimina un aereo" value="Elimina un aereo" />
+            </form>
+        </div>
+    </div>
+    <form class="form-inline my-2 my-lg-0" action="{{url_for('regOperatorePagina')}}" method="post">
+        <!-- Input per andare alla pagina per registrare un nuovo operatore -->
+        <input id="regOperatorePagina" class="btn btn-outline-secondary btn-block" type="submit" name="Inserisci un nuovo operatore" value="Inserisci un nuovo operatore" />
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina permette all'utente di aggiungere bagagli in stiva alla sua prenotazione
+    (gia' esistente). L'utente immette i dati e li passa a flask cosi che possa andare ad
+    aggiornare la tabella prenotazioni andando ad aggiungere i nuovi bagagli.
+-->
+
+{% block head %}
+<style>
+    .btn-grp {
+        max-width: 25%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <p class="lead mt-5">Aggiungi il numero di bagagli in stiva che ti serve.</p>
+</div>
+
+<!-- Aggiunta dei bagagli -->
+<form class="btn-grp mx-auto" action="{{url_for('aggiungiBagagli')}}" method="post">
+    <label for="bagagli" class="sr-only">Numero bagali in stiva da aggiungere</label>
+    <!-- Numero di bagagli in stiva da inserire per essere aggiornato -->
+    <input type="number" min="0" name="aggiungere" id="aggiungere" class="form-control" placeholder="Numero bagagli in stiva da aggiungere" required autofocus />
+    <br />
+    <br />
+    <!-- Passaggio del numero di bagagli in stiva vecchio non visibile -->
+    <input type="hidden" name="stiva" value="{{stiva}}" />
+    <!-- Passaggio del codice della prenotazione non visibile -->
+    <input type="hidden" name="codice" value="{{codice}}" />
+    <!-- Input per andare alla pagina di aggiunta di bagagli alla prenotazione -->
+    <input id="aggiungi" class="btn btn-outline-success btn-block" type="submit" name="Aggiungi" value="Aggiungi" />
+</form>
+{% endblock %}

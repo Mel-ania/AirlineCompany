@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina serve per far immettere i dati all'utente per registrare un nuovo
+    operatore. I dati inseriti vengono poi passati a flask che fara' l'inserimento
+    dell'utente nel database e gli dara' accesso e permessi al database.
+    Tutti i dati da inserire sono obbligatori.
+-->
+
+{% block head %}
+
+<style>
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+    }
+
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+
+<form class="form-signin text-center" action="{{url_for('regOperatore')}}" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Registra un nuovo operatore</h1>
+
+    <label for="utente" class="sr-only">Nome utente</label>
+    <!-- Nome da inserire per essere registrato -->
+    <input type="text" name="utente" id="utente" class="form-control mb-1" placeholder="Nome utente" required autofocus />
+
+    <label for="codice" class="sr-only">Codice fiscale - ID</label>
+    <!-- ID da inserire per essere registrato -->
+    <input type="text" name="codice" id="codice" class="form-control mb-1" placeholder="Codice fiscale - ID" required autofocus />
+
+    <label for="inputEmail" class="sr-only">Indirizzo email</label>
+    <!-- Email da inserire per essere registrata -->
+    <input type="email" name="inputEmail" id="inputEmail" class="form-control mb-1" placeholder="Indirizzo email" required autofocus />
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <!-- Password da inserire per essere registrata -->
+    <input type="password" name="password" id="Password" class="form-control" placeholder="Password" required autofocus />
+
+    <!-- Input per registrare l'operatore -->
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Fatto" name="Fatto" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina mostra i dati specifici di una singola prenotazione precedentemente selezionata.
+    Il codice della prenotazione e' servito per trovare tutte le informazioni specifiche tramite
+    flask, pero' poi e' stato comunque ripassato a questa pagina html per poter poi fare la richiesta
+    di andare ad aggiungere bagagli in stiva o di cancellare la prenotazione.
+    La pagina presenta prima un input per tornare all'area riservata dell'utente e poi tre colonne
+    con le specifiche della prenotazione, infine ci sono gli input per la cancellazione e la modifica
+    della prenotazione.
+    La struttura e' fissa e le informazioni vengono prese attraverso una riga di una tabella
+    passata da flask per i posti e una per i bagagli.
+-->
+
+{% block head %}
+<style>
+    .form-inline {
+        max-width: 38%;
+    }
+
+    .container {
+        max-width: 960px;
+        margin-top: 30px;
+    }
+
+    .pricing-header {
+        max-width: 700px;
+    }
+
+    .card-deck .card {
+        min-width: 220px;
+    }
+
+    .btn-grp {
+        max-width: 75%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <h1 class="display-4">La tua prenotazione</h1>
+    <p class="lead">Torna nella tua area riservata per vedere tutte le tue prenotazioni.</p>
+</div>
+
+<form class="form-inline my-2 my-lg-0 mx-auto" action="{{url_for('areaRiservata')}}" method="post">
+    <!-- Input per ritornare all'area riservata dell'utente -->
+    <input id="areaRiservata" class="btn btn-outline-info btn-block" type="submit" name="Area riservata" value="Area riservata" />
+</form>
+
+<!-- Informazioni sulla prenotazione -->
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Posti prenotati</h4>
+            </div>
+            <div class="card-body text-left ml-3">
+                {% for elem in biglietti %} <!-- Ciclo for per scorrere tutte le righe della tabella con i posti prenotati -->
+                <!-- Per ogni riga della tabella -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" disabled>
+                    <!-- Codice alfanumerico del posto prenotato -->
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">{{elem['CodPosti']}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Bagagli a mano</h4>
+            </div>
+            <div class="card-body text-left">
+                Totale: {{bagagli['BagagliMano']}} <!-- Numero bagagli a mano totali della prenotazione -->
+                <br />
+                <br />
+                Un bagaglio a mano a persona.
+                <br />
+                Il bagaglio stara' nella cappelliera.
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Bagagli in stiva</h4>
+            </div>
+            <div class="card-body text-left">
+                Totale: {{bagagli['BagagliStiva']}} <!-- Numero bagagli in stiva totali della prenotazione -->
+                <br />
+                <br />
+                Ogni bagaglio in stiva deve pesare al massimo 30kg, altrimenti si paghera' una sanzione per ogni kg in piu'.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Operazioni sulla prenotazione -->
+<div class="btn-grp mx-auto">
+    <div class="row">
+        <!-- Cancellazione -->
+        <div class="col-md-5">
+            <form class="form-inline my-2 my-lg-0 mx-auto" action="{{url_for('cancellaPrenotazione')}}" method="post">
+                <!-- Passaggio del codice della prenotazione non visibile -->
+                <input type="hidden" name="prenotazioni" value="{{bagagli['CodPrenotazioni']}}" />
+                <!-- Input per cancellare la prenotazione -->
+                <input class="btn btn-outline-danger btn-block" type="submit" name="Cancella prenotazione" value="Cancella prenotazione" />
+            </form>
+        </div>
+        <!-- Modifica -->
+        <div class="col-md-5 ml-auto">
+            <form class="form-inline my-2 my-lg-0 mx-auto" action="{{url_for('modificaPrenotazione')}}" method="post">
+                <!-- Passaggio del codice della prenotazione non visibile -->
+                <input type="hidden" name="prenotazioni" value="{{bagagli['CodPrenotazioni']}}" />
+                <!-- Passaggio del numero di bagagli in stiva non visibile -->
+                <input type="hidden" name="stiva" value="{{bagagli['BagagliStiva']}}" />
+                <!-- Input per andare alla pagina di aggiunta di bagagli alla prenotazione -->
+                <input class="btn btn-outline-warning btn-block" type="submit" name="Piu' bagagli in stiva" value="Piu' bagagli in stiva" />
+            </form>
+        </div>
+    </div>
+    <p class="text-center">
+        Vuoi aggiungere altri posti? Fai una nuova prenotazione.
+    </p>
+</div>
+{% endblock %}

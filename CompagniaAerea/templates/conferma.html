@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina mostra la conferma di una prenotazione con la ricapitolazione delle specificche
+    indicate (posti prenotati, bagagli a mano, bagagli in stiva) e del prezzo pagato con lo sconto
+    applicato.
+    La pagina presenta prima un input per tornare all'area riservata dell'utente e poi tre colonne
+    con le specifiche della conferma della prenotazione.
+-->
+
+{% block head %}
+<style>
+    .form-inline {
+        max-width: 38%;
+    }
+
+    .container {
+        max-width: 960px;
+        margin-top: 30px;
+    }
+
+    .pricing-header {
+        max-width: 700px;
+    }
+
+    .card-deck .card {
+        min-width: 220px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <h1 class="display-4">Prenotazione confermata</h1>
+    <p class="lead">Torna nella tua area riservata per vedere tutte le tue prenotazioni.</p>
+</div>
+
+<form class="form-inline my-2 my-lg-0 mx-auto" action="{{url_for('areaRiservata')}}" method="post">
+    <!-- Input per ritornare all'area riservata dell'utente -->
+    <input id="areaRiservata" class="btn btn-outline-info btn-block" type="submit" name="Area riservata" value="Area riservata" />
+</form>
+
+<!-- Informazioni sulla conferma della prenotazione -->
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Posti prenotati</h4>
+            </div>
+            <div class="card-body text-left ml-3">
+                {% for elem in biglietti %} <!-- Ciclo for per scorrere tutte le righe della tabella con i posti prenotati -->
+                <!-- Per ogni riga della tabella -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" disabled>
+                    <!-- Codice alfanumerico del posto prenotato -->
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">{{elem}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Bagagli</h4>
+            </div>
+            <div class="card-body text-center">
+                Bagagli a mano: {{biglietti|length}} <!-- Numero bagagli a mano totali della prenotazione -->
+                <br />
+                Bagagli in stiva: {{bs}} <!-- Numero bagagli in stiva totali della prenotazione -->
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Prezzo totale</h4>
+            </div>
+            <div class="card-body text-center">
+                Sconto: {{sconto}}% <!-- Numero in percentuale di sconto da applicare -->
+                <br />
+                Totale pagato: {{prezzo}} euro <!-- Prezzo pagato con lo sconto applicato -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

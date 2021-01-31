@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina e' la home page che mostrera' le diverse sezioni dove puo' entrare un qualsiasi
+    uente, anche non registrato. Le sezioni sono le stesse del menu' rapido nella barra di
+    navigazione.
+    La pagina e' divisa in due parti:
+        - la parte superiore e' un carousel che mostra tre scenari con tre diverse sezioni;
+        - la parte inferiore e' statica e mostra altre tre diverse sezioni.
+    Il carousel si muove autonomamente o con un click sulla parte destra o sinistra.
+-->
+
+{% block head %}
+<style>
+    .carousel {
+        margin-bottom: 4rem;
+    }
+
+    .carousel-caption {
+        bottom: 3rem;
+        z-index: 10;
+    }
+
+    .carousel-item {
+        height: 23rem;
+    }
+
+    .col-lg-4 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .img-fluid {
+        width: 100%;
+        height: 100%
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-targte="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <!-- Immagine di sfondo -->
+            <img src="{{url_for('static',filename='images/tramonto.jpg')}}" class="img-fluid" alt="Responsive image">
+            <div class="container">
+                <div class="carousel-caption text-left">
+                    <h1>Vola con noi</h1>
+                    <p>Con noi viaggerai comodamente e senza pensieri. Avrai la testa tra le nuvole.</p>
+                    <form action="{{url_for('offerte')}}" method="post">
+                        <!-- Input per la lista dei voli con sconto -->
+                        <input id="offerte" class="btn btn-lg btn-primary" type="submit" name="Vedi le offerte" value="Vedi le offerte" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <!-- Immagine di sfondo -->
+            <img src="{{url_for('static',filename='images/mare.jpg')}}" class="img-fluid" alt="Responsive image">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Prenota un viaggio intorno al mondo in due semplici click</h1>
+                    <p>Cerca il volo piu' adatto a te e alle tue esigenze. Seleziona i posti e i bagagli.</p>
+                    <form action="{{url_for('voli')}}" method="post">
+                        <!-- Input per la lista di tutti i voli -->
+                        <input id="voli" class="btn btn-lg btn-primary" type="submit" name="Prenota subito" value="Prenota subito" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <!-- Immagine di sfondo -->
+            <img src="{{url_for('static',filename='images/citta.jpg')}}" class="img-fluid" alt="Responsive image">
+            <div class="container">
+                <div class="carousel-caption text-right">
+                    <h1>Visita le mete piu' belle</h1>
+                    <p>Avrai un'ampia gamma di mete tra cui scegliere per la tua prossima avventura in giro per il mondo.</p>
+                    <form action="{{url_for('mete')}}" method="post">
+                        <!-- Input per la lista di tutte le mete -->
+                        <input id="mete" class="btn btn-lg btn-primary" type="submit" name="Visualizza mete" value="Visualizza mete" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scorrimento carousel -->
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!-- Parte inferiore -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>Voli low cost</h2>
+            <p>Sai che oggi e' davvero il tuo giorno fortunato? Scopri dove puoi volare praticamente gratis.</p>
+            <form action="{{url_for('lowCost')}}" method="post">
+                <!-- Input per la lista dei voli low cost -->
+                <input id="lowCost" class="btn btn-outline-secondary" type="submit" name="Voli low cost" value="Voli low cost" />
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <h2>Mete preferite</h2>
+            <p>Le mete piu' gettonate di quest'anno sono qui per te! Le voste mete preferite sono qui.</p>
+            <form action="{{url_for('meteGettonate')}}" method="post">
+                <!-- Input per la lista delle mete piu' richieste -->
+                <input id="meteGettonate" class="btn btn-outline-secondary" type="submit" name="Mete gettonate" value="Mete gettonate" />
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <h2>Classi e privilegi</h2>
+            <p>A seconda della classe che sceglierai, avrai diversi comfort e vantaggi a disposizione.</p>
+            <form action="{{url_for('classi')}}" method="post">
+                <!-- Input per vedere i privilegi per le diverse classi -->
+                <input id="classi" class="btn btn-outline-secondary" type="submit" name="Classi e privilegi" value="Classi e privilegi" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

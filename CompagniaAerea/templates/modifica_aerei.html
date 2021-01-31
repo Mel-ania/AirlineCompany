@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina serve per far immettere i dati di un aereo all'operatore per modificarli.
+    L'operatore seleziona l'aereo del quale vuole modificare i dati. I dati inseriti
+    vengono poi passati a flask che fara' l'aggiornamento dei dati dell'aereo nel database.
+    Tutti i dati da inserire sono obbligatori.
+-->
+
+{% block head %}
+<style>
+    .btn-grp {
+        max-width: 30%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .container {
+        max-width: 330px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <p class="lead mt-3">Seleziona l'aereo che vuoi modificare.</p>
+</div>
+
+<form class="btn-grp mx-auto" action="{{url_for('modificaAereo')}}" method="post">
+    <p class="text-left mt-2 mb-1 ml-2">Lista aerei</p>
+    <!-- Aereo da scegliere da modificare -->
+    <select id="codice" name="codice" class="form-control mb-1" required autofocus>
+        {% for row in aerei %} <!-- Ciclo for per scorrere tutte le righe della tabella con gli aerei -->
+        <!-- Per ogni riga della tabella -->
+        <option value="{{row['Tipo']}} - Codice: {{row['CodAerei']}}">{{row['Tipo']}} - Codice: {{row['CodAerei']}}</option>
+        {% endfor %}
+    </select>
+    <br />
+    <br />
+    <div class="container">
+        <label for="file" class="sr-only">Numero file da aggiungere</label>
+        <!-- Numero di file in piu' da inserire -->
+        <input type="number" name="file" id="file" min="0" class="form-control mb-1" placeholder="Numero file da aggiungere" required autofocus />
+
+        <label for="stiva" class="sr-only">Numero kg in stiva da aggiungere</label>
+        <!-- Peso della stiva in piu' da inserire -->
+        <input type="number" name="stiva" id="stiva" min="0" class="form-control mb-1" placeholder="Numero kg in stiva da aggiungere" required autofocus />
+    </div>
+    <br />
+    <br />
+    <!-- Input per la modifica dei dati -->
+    <input id="modifica" class="btn btn-outline-success btn-block" type="submit" name="Modifica" value="Modifica" />
+</form>
+{% endblock %}

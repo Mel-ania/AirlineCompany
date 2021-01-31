@@ -1,0 +1,155 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>2ac6be89-e3a3-413a-a160-9d8baeeb5642</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>app.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+    <Name>CompagniaAerea</Name>
+    <RootNamespace>CompagniaAerea</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libman.json" />
+    <Content Include="requirements.txt" />
+    <Content Include="static\images\Amsterdam.jpg" />
+    <Content Include="static\images\Bangkok.jpg" />
+    <Content Include="static\images\Barcellona.jpg" />
+    <Content Include="static\images\citta.jpg" />
+    <Content Include="static\images\Francia.jpg" />
+    <Content Include="static\images\Giappone.jpg" />
+    <Content Include="static\images\Istanbul.jpg" />
+    <Content Include="static\images\italia.jpg" />
+    <Content Include="static\images\Londra.jpg" />
+    <Content Include="static\images\mare.jpg" />
+    <Content Include="static\images\New York.jpg" />
+    <Content Include="static\images\Olanda.jpg" />
+    <Content Include="static\images\Parigi.jpg" />
+    <Content Include="static\images\Regno Unito.jpg" />
+    <Content Include="static\images\Spagna.jpg" />
+    <Content Include="static\images\Thailandia.jpg" />
+    <Content Include="static\images\Tokyo.jpg" />
+    <Content Include="static\images\tramonto.jpg" />
+    <Content Include="static\images\Turchia.jpg" />
+    <Content Include="static\images\USA.jpg" />
+    <Content Include="static\images\Venezia.jpg" />
+    <Content Include="static\js\bootstrap.min.js" />
+    <Content Include="static\js\JQuery.js" />
+    <Content Include="static\js\loader.js" />
+    <Content Include="static\js\mdb.min.js" />
+    <Content Include="static\js\popper.min.js" />
+    <Content Include="static\js\seatchart.js" />
+    <Content Include="static\styles\bootstrap.min.css" />
+    <Content Include="static\styles\mdb.min.css" />
+    <Content Include="static\styles\seatchart.css" />
+    <Content Include="static\styles\style.css" />
+    <Content Include="templates\base.html" />
+    <Content Include="templates\cancella_aerei.html" />
+    <Content Include="templates\cancella_mete.html" />
+    <Content Include="templates\cancella_voli.html" />
+    <Content Include="templates\classi.html" />
+    <Content Include="templates\conferma.html" />
+    <Content Include="templates\dati.html" />
+    <Content Include="templates\dettagli.html" />
+    <Content Include="templates\home.html" />
+    <Content Include="templates\login.html" />
+    <Content Include="templates\low_cost.html" />
+    <Content Include="templates\mete.html" />
+    <Content Include="templates\mete_gettonate.html" />
+    <Content Include="templates\modifica_aerei.html" />
+    <Content Include="templates\modifica_mete.html" />
+    <Content Include="templates\modifica_prenotazione.html" />
+    <Content Include="templates\modifica_profilo.html" />
+    <Content Include="templates\modifica_voli.html" />
+    <Content Include="templates\offerte.html" />
+    <Content Include="templates\operatore.html" />
+    <Content Include="templates\posti.html" />
+    <Content Include="templates\posti_op.html" />
+    <Content Include="templates\prenotazioni.html" />
+    <Content Include="templates\registrazione.html" />
+    <Content Include="templates\reg_aerei.html" />
+    <Content Include="templates\reg_mete.html" />
+    <Content Include="templates\reg_operatore.html" />
+    <Content Include="templates\reg_voli.html" />
+    <Content Include="templates\statistiche.html" />
+    <Content Include="templates\viaggi.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.7</Version>
+      <Description>env (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\images\" />
+    <Folder Include="static\js\" />
+    <Folder Include="static\styles\" />
+    <Folder Include="templates\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

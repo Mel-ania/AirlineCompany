@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina mostra l'elenco di tutte le mete con la citta' e la nazione.
+    Ogni sezione e' divisa in due colonne: la prima e' per la citta', la seconda per la nazione.
+    La struttura di ogni sezione che mostra la meta e' sempre la stessa, quindi per scorrere
+    tutte le mete si usa un ciclo for.
+    Le immagini di riferimento devono avere lo stesso identico nome della citta' o della
+    nazione a cui fanno riferimento. Per questo motivo serve avere una cartella con tutte
+    le immagini per le mete salvate nel database.
+-->
+
+{% block head %}
+<style>
+    @media (min-width: 768px) {
+        .flex-md-equal > * {
+            -ms-flex: 1;
+            flex: 1;
+        }
+    }
+
+    .overflow-hidden {
+        overflow: hidden;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5 text-white bg-dark">
+    <h1 class="display-4">Le nostre mete</h1>
+    <p class="lead">Scorri per scoprire quali mete ti attendono.</p>
+</div>
+
+{% for row in localita %} <!-- Ciclo for per scorrere tutte le righe della tabella con le informazioni sulle mete -->
+<!-- Per ogni riga della tabella -->
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="my-3 py-3">
+            <h2 class="display-5">{{row['Citta']}}</h2> <!-- Nome citta' -->
+            <p class="lead">Scopri questa bellissima citta'...</p>
+        </div>
+        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+            <!-- Immagine della citta' -->
+            <img src="static/images/{{row['Citta']}}.jpg" style="border-radius: 21px 21px 0 0;" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+    <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">{{row['Nazione']}}</h2> <!-- Nome nazione -->
+            <p class="lead">... in questo magnifico paese.</p>
+        </div>
+        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+            <!-- Immagine della nazione -->
+            <img src="static/images/{{row['Nazione']}}.jpg" style="border-radius: 21px 21px 0 0;" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

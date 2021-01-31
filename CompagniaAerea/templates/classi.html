@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina mostra i privilegi per ciascuna classe. Per ogni classe  ci sono una serie di
+    elementi che saranno visualizzati a fianco di una check-box disabilitata. Se la check-box e'
+    spuntata, quell'elemento risulta attivo per quella classe, altrimenti risulata non attivo.
+-->
+
+{% block head %}
+<style>
+    html {
+        font-size: 14px;
+    }
+
+    @media (min-width: 768px) {
+        html {
+            font-size: 16px;
+        }
+    }
+
+    .container {
+        max-width: 960px;
+    }
+
+    .pricing-header {
+        max-width: 700px;
+    }
+
+    .card-deck .card {
+        min-width: 220px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <h1 class="display-4">Classi</h1>
+    <p class="lead">Scopri quale classe si adatta di piu' alle tue esigenze.</p>
+</div>
+
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <!-- First class -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">First</h4>
+            </div>
+            <div class="card-body text-left ml-3">
+                {% if first['Wifi'] == true %} <!-- C'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% endif %}
+                {% if first['Schermo'] == true %} <!-- C'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% else %} <!-- Non c'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% endif %}
+                {% if first['PastoGratis'] == true %} <!-- C'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% endif %}
+                {% if first['Corrente'] == true %} <!-- C'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% else %} <!-- Non c'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Business class -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Business</h4>
+            </div>
+            <div class="card-body text-left ml-3">
+                {% if business['Wifi'] == true %} <!-- C'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% endif %}
+                {% if business['Schermo'] == true %} <!-- C'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% else %} <!-- Non c'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% endif %}
+                {% if business['PastoGratis'] == true %} <!-- C'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% endif %}
+                {% if business['Corrente'] == true %} <!-- C'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% else %} <!-- Non c'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Economy class -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Economy</h4>
+            </div>
+            <div class="card-body text-left ml-3">
+                {% if economy['Wifi'] == true %} <!-- C'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' il wifi -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Wi-fi gratuito</label>
+                </div>
+                {% endif %}
+                {% if economy['Schermo'] == true %} <!-- C'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% else %} <!-- Non c'e' lo schermo per i film -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Schermo per i film</label>
+                </div>
+                {% endif %}
+                {% if economy['PastoGratis'] == true %} <!-- C'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% else %} <!-- Non c'e' un pasto gratis -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Pasto gratuito</label>
+                </div>
+                {% endif %}
+                {% if economy['Corrente'] == true %} <!-- C'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultCheckedDisabled2" checked disabled>
+                    <label class="custom-control-label" for="defaultCheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% else %} <!-- Non c'e' una presa di corrente -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUncheckedDisabled2" disabled>
+                    <label class="custom-control-label" for="defaultUncheckedDisabled2">Presa di corrente</label>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

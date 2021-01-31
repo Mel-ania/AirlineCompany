@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina serve per far cancellare una meta all'operatore.
+    L'operatore seleziona la meta e flask la cancellera' dal database.
+-->
+
+{% block head %}
+<style>
+    .btn-grp {
+        max-width: 25%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <p class="lead mt-5">Seleziona la meta che vuoi cancellare.</p>
+</div>
+
+<form class="btn-grp mx-auto" action="{{url_for('cancellaMeta')}}" method="post">
+    <p class="text-left mt-2 mb-1 ml-2">Lista mete</p>
+    <!-- Meta da scegliere da cancellare -->
+    <select id="codice" name="codice" class="form-control mb-1" required autofocus>
+        {% for row in citta %} <!-- Ciclo for per scorrere tutte le righe della tabella con le mete -->
+        <!-- Per ogni riga della tabella -->
+        <option value="{{row['Citta']}} - {{row['NomeAeroporto']}} - Codice: {{row['CodLocalita']}}">{{row['Citta']}} - {{row['NomeAeroporto']}} - Codice: {{row['CodLocalita']}}</option>
+        {% endfor %}
+    </select>
+    <br />
+    <br />
+    <!-- Input per la cancellazione della meta -->
+    <input id="cancella" class="btn btn-outline-danger btn-block" type="submit" name="Cancella" value="Cancella" />
+</form>
+{% endblock %}

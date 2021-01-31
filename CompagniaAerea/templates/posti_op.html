@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina e' dove l'operatore puo' vedere la mappa dei posti del volo che ha selezionato.
+    Al centro della pagina c'e' la mappa dei posti (anche con i corridoi e le separazioni tra
+    classi) e a destra c'e' una colonna dove sono presenti la legenda dei posti (selezionati,
+    liberi, prenotati o di un'altra classe) e il carrello riepilogativo.
+    L'utente puo' selezionare i posti direttamente sulla mappa, ma chiaramente non puo' cliccare
+    i posti gia' prenotati. Se desidera rimuovere un posto puo' cliccare sul posto sulla mappa o
+    sulla X nel carrello affianco del biglietto. Se, invece, vuole rimuovere tutti i posti
+    selezionati, bastera' cliccare su "X Elimina" sotto al carrello. L'operatore non puo' effettuare
+    prenotazioni, puo' solo vedere se nell'aereo per quel volo ci sono posti prenotati e quali sono.
+-->
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='styles/seatchart.css')}}" type="text/css">
+<script src="{{url_for('static',filename='js/seatchart.js')}}" type="text/javascript"></script>
+<style>
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 100px;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        margin-left: 80px;
+    }
+
+    .map-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .legend-container {
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5 text-white bg-dark">
+    <h1 class="display-4">Posti</h1>
+    <!-- Luogo di partenza e di arrivo -->
+    <p class="lead">Seleziona i posti che desideri prenotare per il volo {{da}} - {{verso}}.</p>
+</div>
+
+<!-- Mappa dei posti e colonna a destra -->
+<div class="content mt-5">
+    <!-- Mappa dei posti -->
+    <div id="map-container"></div>
+
+    <div class="right">
+        <!-- Legenda dei posti -->
+        <div id="legend-container"></div>
+        <br />
+        <!-- Carrello -->
+        <div id="cart-container"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*
+     * Qui viene generata la mappa dei posti, la legenda e il carrello.
+     * Per la mappa dei posti, i posti sono numerati da 0 al totale dei posti -1.
+     * Grazie alla trasformazione fatta in flask dalla codifica alfanumerica alla
+     * codifica numerica, qui basta usare un json per ottenere il formato giusto.
+     * Bisogna anche calcolare dove saltare una fila o una colonna per lasciare i
+     * corridoi e le divisioni delle classi e togliere i posti davanti all'estrema
+     * destra e sinistra per la forma dell'aereo: per farlo si fanno delle operazioni
+     * standard sul numero delle file.
+     */
+
+    var options; // opzioni per la creazione della mappa
+    var prenotati = JSON.parse('{{ prenotati|safe }}'); // elenco dei posti prenotati
+
+    options = { // opzioni per la mappa
+        types: [ // biglietti finti
+            { type: "Selezionabile", backgroundColor: "#ff483a", price: 0 },
+        ],
+        map: { // grandezza mappa che corrisponde alla grandezza dell'aereo corrispondente al volo
+            id: 'map-container',
+            rows: {{ righe | int + 2 }}, // numero file
+            columns: 7, // numero colonne
+
+            reserved: {
+                seats: prenotati // posti prenotati
+            },
+            disabled: { // posti non esistenti
+                seats: [0, 6],
+                rows: [{{ (righe | int * 0.1) | int }}, {{ (righe | int * 0.4) | int + 1 }}], // divisori tra le classi
+                columns: [3] // corridoi
+            }
+        },
+        cart: { // carrello
+            id: 'cart-container',
+                width: 280,
+                height: 250,
+                currency: 'euro ',
+        },
+        legend: { // legenda
+            id: 'legend-container',
+
+        }
+    };
+    var sc = new Seatchart(options); // creazione di mappa, legenda e carrello
+</script>
+{% endblock %}

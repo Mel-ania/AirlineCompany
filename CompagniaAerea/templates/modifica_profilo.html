@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<!--
+    Questa pagina serve per far immettere i dati all'utente per modificarli.
+    I dati inseriti vengono poi passati a flask che fara' l'aggiornamento dei dati
+    dell'utente nel database.
+    Non e' obbligatorio inserire tutti i dati.
+-->
+
+{% block head %}
+<style>
+    .btn-grp {
+        max-width: 20%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .container {
+        max-width: 330px;
+    }
+</style>
+{% endblock %}
+
+{% block pagebody %}
+<!-- Intestazione -->
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mt-5">
+    <p class="lead mt-3">Inserisci i tuoi nuovi dati</p>
+</div>
+
+<form class="btn-grp mx-auto" action="{{url_for('modificaProfilo')}}" method="post">
+    <div class="container">
+        <label for="nome" class="sr-only">Nome utente</label>
+        <!-- Nome da inserire per essere aggiornato -->
+        <input type="text" name="nome" id="nome" class="form-control mb-1" placeholder="Nome utente" />
+
+        <label for="inputEmail" class="sr-only">Indirizzo email</label>
+        <!-- Email da inserire per essere aggiornata -->
+        <input type="email" name="inputEmail" id="inputEmail" max="100" min="0" class="form-control mb-1" placeholder="Indirizzo email" />
+    </div>
+    <br />
+    <br />
+    <!-- Input per la modifica dei dati -->
+    <input id="modifica" class="btn btn-outline-success btn-block" type="submit" name="Modifica" value="Modifica" />
+</form>
+{% endblock %}
