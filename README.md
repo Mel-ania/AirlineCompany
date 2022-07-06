@@ -8,4 +8,4 @@ The site is accessed with or without authentication: user or administrators. Eac
 
 <sub>Technologies: Python, Flask, MySQL, HTML, JavaScript, CSS, Bootstrap, Visual Studio</sub>
 
-For more specific informations on this project check out the [documentation](Documentazione.pdf) (only available in Italian).
+For more specific information on this project, please check out the [documentation](Documentazione.pdf) (only available in Italian).
